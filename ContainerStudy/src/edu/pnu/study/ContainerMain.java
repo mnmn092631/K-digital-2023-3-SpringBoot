@@ -18,25 +18,25 @@ public class ContainerMain {
 		ContainerMain cm = new ContainerMain();
 
 		// 일정 시간동안 사용되지 않고 있는 Operator 객체를 제거하는 Thread
-//		Thread th = new Thread(() -> {
-//			MyOperatorContainer moc = cm.getContainer();
-//
-//			// 메인 Thread가 종료하면 같이 종료되도록 종료 조건 변수(threadCheck)를 확인한다.
-//			while(cm.getThreadCheck()) {
-//				// 생존 기준 시간인 millisecond를 넘겨서 사용되지 않은 객체는 제거한다.
-//				moc.releaseOldObject(10000);
-//				
-//				try {
-//					Thread.sleep(1000);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				System.out.println("thread");
-//			}
-//			System.out.println("쓰레드를 종료합니다.");
-//		});
-//		// Thread 시작
-//		th.start();
+		Thread th = new Thread(() -> {
+			MyOperatorContainer moc = cm.getContainer();
+
+			// 메인 Thread가 종료하면 같이 종료되도록 종료 조건 변수(threadCheck)를 확인한다.
+			while(cm.getThreadCheck()) {
+				// 생존 기준 시간인 millisecond를 넘겨서 사용되지 않은 객체는 제거한다.
+				moc.releaseOldObject(10000);
+				
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println("thread");
+			}
+			System.out.println("쓰레드를 종료합니다.");
+		});
+		// Thread 시작
+		th.start();
 		
 		System.out.println("프로그램을 시작합니다.");
 		
@@ -54,8 +54,7 @@ public class ContainerMain {
 	}
 	
 	private boolean isOperator(String str) {
-		if (list.contains(str))
-			return true;
+		if (list.contains(str)) return true;
 		return false;
 	}
 	
