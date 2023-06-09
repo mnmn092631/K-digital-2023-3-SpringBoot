@@ -2,7 +2,6 @@ package edu.pnu.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -25,6 +24,24 @@ public class MemberDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private Long getMaxId() {
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(String.format("SELECT Max(id) FROM member"));
+
+			rs.next();
+			Long maxId = rs.getLong(1);
+
+			rs.close();
+			stmt.close();
+
+			return maxId;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1L;
 	}
 
 	public Member getMember(Long id) {
@@ -76,14 +93,14 @@ public class MemberDAO {
 
 	public Member addMember(Member member) {
 		try {
-			PreparedStatement psmt = con.prepareStatement(String.format("INSERT INTO member(pass, name) VALUES (%s, %s)",
+			Statement stmt = con.createStatement();
+			stmt.executeQuery(String.format("INSERT INTO member(pass, name) VALUES (%s, %s)",
 															member.getPass(), member.getName()));
-			psmt.executeUpdate();
 
-			psmt.close();
+			stmt.close();
 			
-			List<Member> members = getMembers();
-			return members.get(members.size() - 1);
+			Long id = getMaxId();
+			return getMember(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -92,11 +109,11 @@ public class MemberDAO {
 
 	public Member updateMember(Member member) {
 		try {
-			PreparedStatement psmt = con.prepareStatement(String.format("UPDATE member SET pass=%s, name=%s WHERE id=%d",
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(String.format("UPDATE member SET pass=%s, name=%s WHERE id=%d",
 															member.getPass(), member.getName(), member.getId()));
-			psmt.executeUpdate();
 
-			psmt.close();
+			stmt.close();
 			
 			return getMember(member.getId());
 		} catch (Exception e) {
@@ -109,10 +126,10 @@ public class MemberDAO {
 		try {
 			Member m = getMember(id);
 			
-			PreparedStatement psmt = con.prepareStatement(String.format("DELETE FROM member WHERE id=%d", id));
-			psmt.executeUpdate();
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(String.format("DELETE FROM member WHERE id=%d", id));
 
-			psmt.close();
+			stmt.close();
 			
 			return m;
 		} catch (Exception e) {
