@@ -25,7 +25,7 @@ public class MemberController {
 		memberService = new MemberService();
 	}
 	
-	@GetMapping("/member")
+	@GetMapping("/members")
 	public List<MemberVO> getMembers() {
 		log.info("getMembers()");
 		return memberService.getMembers();
