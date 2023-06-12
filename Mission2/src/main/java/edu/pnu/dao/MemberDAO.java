@@ -47,7 +47,7 @@ public class MemberDAO {
 	public Member getMember(Long id) {
 		try {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM member WHERE id = %d", id));
+			ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM member WHERE id=%d", id));
 
 			rs.next();
 
@@ -92,7 +92,7 @@ public class MemberDAO {
 	public Member addMember(Member member) {
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate(String.format("INSERT INTO member(pass, name) VALUES (%s, %s)",
+			stmt.executeUpdate(String.format("INSERT INTO member(pass, name) VALUES ('%s', '%s')",
 															member.getPass(), member.getName()));
 
 			stmt.close();
@@ -108,7 +108,7 @@ public class MemberDAO {
 	public Member updateMember(Member member) {
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate(String.format("UPDATE member SET pass=%s, name=%s WHERE id=%d",
+			stmt.executeUpdate(String.format("UPDATE member SET pass='%s', name='%s' WHERE id=%d",
 															member.getPass(), member.getName(), member.getId()));
 
 			stmt.close();
