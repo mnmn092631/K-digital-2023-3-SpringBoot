@@ -66,8 +66,8 @@ public class MemberDAO {
 	}
 
 	public List<Member> getMembers() {
+		List<Member> members = new ArrayList<>();
 		try {
-			List<Member> members = new ArrayList<>();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM member");
 
@@ -83,18 +83,16 @@ public class MemberDAO {
 
 			rs.close();
 			stmt.close();
-
-			return members;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return members;
 	}
 
 	public Member addMember(Member member) {
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeQuery(String.format("INSERT INTO member(pass, name) VALUES (%s, %s)",
+			stmt.executeUpdate(String.format("INSERT INTO member(pass, name) VALUES (%s, %s)",
 															member.getPass(), member.getName()));
 
 			stmt.close();
