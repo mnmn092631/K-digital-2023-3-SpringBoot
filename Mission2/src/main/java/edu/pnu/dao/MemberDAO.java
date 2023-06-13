@@ -29,7 +29,7 @@ public class MemberDAO {
 	private Long getMaxId() {
 		try {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(String.format("SELECT Max(id) FROM member"));
+			ResultSet rs = stmt.executeQuery("SELECT Max(id) FROM member");
 
 			rs.next();
 			Long maxId = rs.getLong(1);
