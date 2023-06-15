@@ -10,14 +10,13 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import edu.pnu.domain.MemberVO;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class MemberDAOH2Impl implements MemberInterface {
 
-	@Autowired
-	private DataSource dataSource;
+	private final DataSource dataSource;
 
 	private int getMaxId() {
 		try (Connection con = dataSource.getConnection()) {

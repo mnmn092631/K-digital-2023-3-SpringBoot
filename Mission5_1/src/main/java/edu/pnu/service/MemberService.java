@@ -3,19 +3,17 @@ package edu.pnu.service;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import edu.pnu.dao.LogDAO;
 import edu.pnu.dao.MemberInterface;
 import edu.pnu.domain.MemberVO;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class MemberService {
 	
-	@Autowired
-	private MemberInterface memberDAO;
+	private final MemberInterface memberDAO;
 	
-	@Autowired
-	private LogDAO logDAO;
+	private final LogDAO logDAO;
 	
 	@SuppressWarnings("unchecked")
 	public List<MemberVO> getMembers(){

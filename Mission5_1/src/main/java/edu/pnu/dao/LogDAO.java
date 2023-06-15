@@ -5,12 +5,12 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class LogDAO {
 
-	@Autowired
-	private DataSource dataSource;
+	private final DataSource dataSource;
 	
 	public void addLog(String method, String sqlstring, boolean success) {
 		try (Connection con = dataSource.getConnection()) {
