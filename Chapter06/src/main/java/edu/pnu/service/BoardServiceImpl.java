@@ -1,6 +1,5 @@
 package edu.pnu.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +26,23 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Board getBoard(Board board) {
-		return boardRepo.findById(board.getSeq()).get();
+		Board findBoard = boardRepo.findById(board.getSeq()).get();
+		findBoard.setCnt(findBoard.getCnt() + 1);
+		return boardRepo.save(findBoard);
 	}
 
 	@Override
 	public void updateBoard(Board board) {
+		Board findBoard = boardRepo.findById(board.getSeq()).get();
+		
+		findBoard.setTitle(board.getTitle());
+		findBoard.setContent(board.getContent());
+		boardRepo.save(findBoard);
 	}
 
 	@Override
 	public void deleteBoard(Board board) {
+		boardRepo.deleteById(board.getSeq());
 	}
 
 }

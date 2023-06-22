@@ -1,15 +1,10 @@
 package edu.pnu.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.pnu.domain.Board;
 import edu.pnu.service.BoardService;
@@ -60,6 +55,18 @@ public class BoardController {
 		Board board = boardService.getBoard(Board.builder().seq(seq).build());
 		model.addAttribute("board", board);
 		return "getBoard";
+	}
+	
+	@PostMapping("/updateBoard")
+	public String updateBoard(Board board) {
+		boardService.updateBoard(board);
+		return "redirect:getBoardList";
+	}
+	
+	@GetMapping("/deleteBoard")
+	public String deleteBoard(Board board) {
+		boardService.deleteBoard(board);
+		return "forward:getBoardList";
 	}
 	
 }
