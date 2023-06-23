@@ -25,17 +25,38 @@ public class LoginController {
 	public String login(Member member, Model model) {
 		Member findMember = memberService.getMember(member);
 
-		if (findMember != null && findMember.getPassword().equals(member.getPassword())) {
+		if (findMember == null) {
+			return "forward:loginError";
+		}
+
+		if (findMember.getPassword().equals(member.getPassword())) {
 			model.addAttribute("member", findMember);
 			return "forward:getBoardList";
 		} else {
 			return "redirect:login";
 		}
 	}
-	
+
 	@GetMapping("/logout")
 	public String logout(SessionStatus status) {
 		status.setComplete();
+		return "redirect:index.html";
+	}
+
+	@GetMapping("/join")
+	public void join() {
+	}
+
+	@PostMapping("/join")
+	public String join(Member member) {
+		Member findMember = memberService.getMember(member);
+
+		if (findMember != null) {
+			return "forward:joinError";
+		}
+		
+		member.setRole("ROLE_USER");
+		memberService.insertMember(member);
 		return "redirect:index.html";
 	}
 

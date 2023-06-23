@@ -2,12 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>회원 로그인</title>
+<title>회원가입</title>
 </head>
 <body th:align="center">
-	<h1>로그인</h1>
-	<form th:action="login" method="post">
+	<h1>회원 가입</h1>
+	<form th:action="join" method="post">
 		<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
+			<tr>
+				<td bgcolor="orange" th:text="이름"></td>
+				<td><input name="name" type="text" size="10"></td>
+			</tr>
 			<tr>
 				<td bgcolor="orange" th:text="아이디"></td>
 				<td><input name="id" type="text" size="10"></td>
@@ -18,11 +22,10 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input type="submit" value="로그인" />
+					<input type="submit" value="회원가입" />
 				</td>
 			</tr>
 		</table>
 	</form>
-	<p align="center"><a href="join">회원가입</a></p>
 </body>
 </html>

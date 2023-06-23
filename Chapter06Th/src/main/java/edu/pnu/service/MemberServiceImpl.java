@@ -13,9 +13,16 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberRepository memberRepo;
 
+	@Override
 	public Member getMember(Member member) {
 		Optional<Member> findMember = memberRepo.findById(member.getId());
 		if (findMember.isPresent()) return findMember.get();
 		else return null;
 	}
+	
+	@Override
+	public void insertMember(Member member) {
+		memberRepo.save(member);
+	}
+	
 }

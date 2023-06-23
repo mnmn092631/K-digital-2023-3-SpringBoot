@@ -6,4 +6,6 @@ public interface MemberService {
 
 	Member getMember(Member member);
 	
+	void insertMember(Member member);
+	
 }
