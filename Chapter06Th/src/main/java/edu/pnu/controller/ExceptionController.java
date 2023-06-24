@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.pnu.exception.BoardNotFoundException;
+import edu.pnu.exception.JoinException;
 import edu.pnu.exception.UsernameNotFoundException;
 
 @Controller
@@ -33,7 +34,7 @@ public class ExceptionController {
 	
 	@RequestMapping("/joinError")
 	public String joinError() {
-		throw new UsernameNotFoundException("아이디가 중복됩니다.");
+		throw new JoinException("아이디가 중복됩니다.");
 	}
 
 }
